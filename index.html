@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>m637 · 世界杯二屏 Demo (Phase 0)</title>
+<style>
+  :root { --bg:#0b1120; --panel:#121a2e; --line:#22304d; --ink:#e6edf7; --muted:#8aa0c2;
+          --home:#39a0ff; --away:#ff5d6c; --accent:#ffd54a; --grass:#16321f; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif; }
+  header { display:flex; align-items:center; gap:16px; padding:10px 18px;
+           border-bottom:1px solid var(--line); background:var(--panel); }
+  header .title { font-weight:700; letter-spacing:.3px; }
+  header .score { font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; }
+  header .clock { margin-left:auto; color:var(--muted); font-variant-numeric:tabular-nums; }
+  header .home { color:var(--home); } header .away { color:var(--away); }
+  .grid { display:grid; grid-template-columns:1.15fr 1fr; gap:12px; padding:12px; }
+  .screen { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:10px; }
+  .screen h2 { margin:0 0 8px; font-size:12px; letter-spacing:1px; color:var(--muted); text-transform:uppercase; }
+  .right { display:grid; grid-template-rows:1fr 0.7fr; gap:12px; }
+  svg { width:100%; height:100%; display:block; }
+  .pitch-wrap { aspect-ratio:105/68; }
+  .net-wrap { min-height:230px; height:100%; }
+  .xt-wrap { min-height:150px; height:100%; }
+  footer { display:flex; align-items:center; gap:14px; padding:12px 18px;
+           border-top:1px solid var(--line); background:var(--panel); }
+  button { background:var(--accent); color:#1a1300; border:0; border-radius:8px;
+           padding:8px 16px; font-weight:700; cursor:pointer; }
+  button.ghost { background:#1c2945; color:var(--ink); }
+  input[type=range] { flex:1; accent-color:var(--accent); }
+  .evlabel { color:var(--muted); min-width:280px; font-variant-numeric:tabular-nums; }
+  .legend { display:flex; gap:14px; font-size:12px; color:var(--muted); padding:0 18px 10px; }
+  .dot { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+  .tag { font-size:11px; color:var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <span class="title">m637 · 世界杯二屏</span>
+  <span class="score"><span class="home" id="scoreH">0</span> : <span class="away" id="scoreA">0</span></span>
+  <span class="tag" id="fixture"></span>
+  <span class="clock" id="clock">00:00</span>
+</header>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--home)"></span>HOME</span>
+  <span><span class="dot" style="background:var(--away)"></span>AWAY</span>
+  <span><span class="dot" style="background:var(--accent)"></span>当前动作 / 涉及球员</span>
+  <span class="tag">Phase 0 · 合成数据 · 二屏壳验证(三屏联动 + 时间轴回放 + xT 实时)</span>
+</div>
+
+<div class="grid">
+  <section class="screen">
+    <h2>① 战术球场 / Tactical Pitch</h2>
+    <div class="pitch-wrap"><svg id="pitch" viewBox="0 0 105 68" preserveAspectRatio="xMidYMid meet"></svg></div>
+  </section>
+  <section class="right">
+    <div class="screen">
+      <h2>② 传球网络 / Pass Network (d3-force)</h2>
+      <div class="net-wrap"><svg id="net" preserveAspectRatio="xMidYMid meet"></svg></div>
+    </div>
+    <div class="screen">
+      <h2>③ xT 价值曲线 / Expected Threat (累计)</h2>
+      <div class="xt-wrap"><svg id="xt" preserveAspectRatio="none"></svg></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <button id="play">▶ 播放</button>
+  <button class="ghost" id="reset">⟲ 重置</button>
+  <input type="range" id="scrub" min="0" max="100" value="0" />
+  <span class="evlabel" id="evlabel">—</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="./mock_match.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>

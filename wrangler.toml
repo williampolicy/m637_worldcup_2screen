@@ -1,0 +1,5 @@
+# m637 · Cloudflare Pages 配置
+# 静态站点在仓库根; Functions 自动从 ./functions 识别(/api/match)。
+name = "m637-worldcup-2screen"
+compatibility_date = "2026-06-30"
+pages_build_output_dir = "."

@@ -1,5 +1,14 @@
 # m637 · World Cup 二屏球迷游戏 (World Cup 2nd-Screen)
 
+> ## ⚠️ 已合并 / MERGED & DEPRECATED (2026-06-30)
+> 本仓库是 m637 的早期 Phase-0 静态 demo。为消除 **同一 project id `m637` 的重复**，
+> 它已被**合并**进统一的 m637 产品：`m637_worldfootballtwin`，线上 **https://football.x1000.ai**。
+> 本项目的三屏联动回放（战术球场 + 传球网络 d3-force + xT 累计曲线）现在是统一 m637 的
+> **「观看比赛 / Watch」模式**（SPADL 事件流 `GET /api/matches/{id}/events` → `web/js/replay.js`），
+> 与「自建比赛 / Play」+ 3D 阵容同处一个产品。
+> **本仓库不再维护；GitHub Pages 现为跳转页。** 旧版静态 demo 存档见 `index_legacy.html`。
+> Canonical m637 = **football.x1000.ai**。
+
 独立游戏项目(与 m505_epic_game / m595_rescue_game 平级)。供需两头夹裁决环的 **forcing function**:
 验证 m459 裁决 `CAP-FE-02 = FORGE`(球迷二屏前端) —— **一场比赛 × 二屏 × 实时**。
 
